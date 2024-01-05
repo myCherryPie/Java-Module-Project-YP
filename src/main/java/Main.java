@@ -1,3 +1,4 @@
+import java.util.Map;
 import java.util.Scanner;
 
 public class Main {
@@ -8,6 +9,7 @@ public class Main {
         String productName;
         double sumCh = 0;
         String exit = "завершить";
+        String checklist = "";
 
 
             System.out.println("На сколько человек будем делить счет?"); // определяем количество персон
@@ -18,22 +20,27 @@ public class Main {
             }
 
 
-            while (true) {                                                  // запрос названия, цены, подсчет суммы
+            while (true) {                                                  // запрос названия
                 Product product = new Product();
                 System.out.println("Введите название товара или 'завершить'");
                 product.name = scanner.next();
-                if (exit.equalsIgnoreCase(product.name)) {
+
+                if (exit.equalsIgnoreCase(product.name)) {                  // выход из списка
                     break;
                 }
-                System.out.println("Введите стоимость товара");
+                checklist = checklist + product.name+ ", ";
+
+                System.out.println("Введите стоимость товара");             // запрос цены
                 product.price = scanner.nextDouble();
-                sumCh = sumCh+product.price;
+
+                sumCh = sumCh+product.price;                                // общая сумма
                 System.out.println("Продукт успешно добавлен в список");
 
 
             }
-        System.out.println("Подводим итог");
-        System.out.println(sumCh/persons);
+        System.out.println("Полный список покупок: "+checklist);
+        System.out.println("Общая сумма покупки равна "+sumCh+"руб., каждый должен внести по "+sumCh/persons+" руб.");
+
 
 
 
