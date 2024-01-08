@@ -30,12 +30,21 @@ public class Main {
     }
 
     public static void getCheck(String name, String exit, String chList, double price, double summa, int persons) {
-        Scanner scanName = new Scanner(System.in);
 
         Product product = new Product(name,price);
         while (!(exit.equalsIgnoreCase(product.name))) {
             System.out.println("введите название товара или завершить");
-            product.name = scanName.nextLine();
+            boolean testName = false;
+            while (!testName) {
+                Scanner scanName = new Scanner(System.in);
+                product.name = scanName.nextLine();
+                product.name = product.name.trim();
+                if (product.name.isEmpty()){
+                    System.out.println("строка пустая, введите название продукта");
+                } else {
+                    testName = true;
+                }
+            }
             if (exit.equalsIgnoreCase(product.name)) {
                 getItogo(chList, summa, persons);
                 return;
@@ -48,11 +57,12 @@ public class Main {
                     Scanner scanner = new Scanner(System.in);
                     if (scanner.hasNextDouble()) {
                         product.price = scanner.nextDouble();
-                        summa += product.price;
+
                     }
                     if (product.price <= 0) {
                         System.out.println("введите корректное значение");
                     } else if (product.price > 0) {
+                        summa += product.price;
                         testDouble = true;
                     }
                 }
@@ -73,6 +83,7 @@ public class Main {
         } else if (pie % 10 > 1 && pie % 10 < 5) {
             rub = "рубля";
         } else rub = "рублей";
+        System.out.println("общая сумма покупки "+summa);
         System.out.println("Каждый должен внести по " + String.format("%.2f", pie) + " " + rub);
     }
 }
